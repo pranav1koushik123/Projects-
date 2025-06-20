@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Classification</title>
+    <style>
+        *{
+            margin:0;
+
+        }
+        
+        body {
+            background:black;
+            font-family: Arial, sans-serif;
+            
+
+
+        }
+
+        .box {
+            width: 400px;
+            padding: 30px;
+            background-color: white;
+            margin: 50px auto;
+            border-radius: 30px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+ 
+        .box h1 {
+            color: green;
+            margin-bottom: 30px;
+        }
+
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: blue;
+        }
+        .box{
+            background:   linear-gradient(135deg, #89f7fe, #66a6ff, #c3cfe2);
+
+
+        }
+        header{
+            margin-top:20px;
+            margin-bottom:10px;
+            display:flex;
+            justify-content:center;
+            color:aqua;
+            font-size:45px;
+
+        }
+        input{
+            border:2px solid black;
+            border-radius:10px;
+        }
+            
+        
+        nav ul{
+            display:flex;
+            justify-content:center;
+            gap:40px;
+            margin-top:0;
+            background-color:black;
+            margin-left:0;
+            margin-right:0;
+            color:white;
+            cursor:pointer;
+            list-style:none;
+            padding:10px;
+
+        }
+        #preview {
+    display: block;
+    margin: 20px auto 0;
+    max-width: 60%;
+    max-height: 200px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+    margin-bottom:10px;
+}
+
+        
+        
+    </style>
+</head>
+<body>
+    <nav><ul>
+        <li>HOME</li>
+        <li>WORKING</li>
+        <li>DEVELOPED BY</li>
+        
+    </ul>
+    </nav>
+    <header><h1>WELCOME
+    </h1></header>
+    
+    <div class="box">
+        <h1>Upload Image for Prediction</h1>
+        
+         <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required onchange="previewImage(event)"><br>
+            <img id="preview">
+            <button type="submit">Predict</button>
+        </form>
+
+   
+
+
+        {% if prediction %}
+            <h2 id="prediction">Prediction: {{ prediction }}</h2>
+
+        {% endif %}
+    </div>
+        <script>
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        // Preview image
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('preview');
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+
+        // 🔥 Clear previous prediction
+        const pred = document.getElementById('prediction');
+        if (pred) {
+            pred.innerText = '';
+        }
+    }
+}
+</script>
+
+
+</body>
+</html>
